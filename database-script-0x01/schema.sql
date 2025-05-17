@@ -54,6 +54,17 @@ CREATE TABLE messages (
     FOREIGN KEY (recipient_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE reviews (
+    review_id BINARY(16) PRIMARY KEY,
+    property_id BINARY(16) NOT NULL,
+    user_id BINARY(16) NOT NULL,
+    rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES properties(property_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
 CREATE INDEX idx_email ON users(email);
 CREATE INDEX idx_property_id ON bookings(property_id);
 CREATE INDEX idx_booking_id ON payments(booking_id);
